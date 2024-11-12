@@ -6,7 +6,7 @@ Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], 'Upgrader' + Game.time,
 Game.spawns['Spawn1'].spawnCreep([WORK,CARRY,MOVE], 'Builder' + Game.time, 
     {memory: {role: 'builder'}});
 Game.spawns['Spawn1'].spawnCreep( [WORK,WORK,WORK,WORK,CARRY,MOVE,MOVE],
-    'HarvesterBig', { memory: { role: 'harvester' } } );
+    'HarvesterBig' + Game.time, { memory: { role: 'harvester' } } );
 Game.creeps['Harvester1'].suicide();
 Game.spawns['Spawn1'].room.controller.activateSafeMode();
 Game.spawns['Spawn1'].room.createConstructionSite( 23, 22, STRUCTURE_TOWER );
