@@ -46,8 +46,7 @@ var roleHarvester = {
                     structure.structureType == STRUCTURE_TOWER) &&
                     structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
                     /*structure.store[RESOURCE_ENERGY] < structure.store.getCapacity();*/
-                }
-            });
+            }});
             if(targets.length > 0) {
                 if(creep.transfer(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
                     creep.say('⚡ store');
