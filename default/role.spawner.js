@@ -7,6 +7,26 @@
  * mod.thing == 'a thing'; // true
  */
 
+var settings = {
+    creeps: {
+        harvesters: {
+            production: true,
+            population: 3,
+            displayName: "harvesters"
+        },
+        upgraders: {
+            production: true,
+            population: 3,
+            displayName: "upgraders"
+        },
+        builders: {
+            production: true,
+            population: 3,
+            displayName: "builders"
+        },
+    }
+}
+
 var roleSpawner = {
 
     /** @param {Creep} creep **/
