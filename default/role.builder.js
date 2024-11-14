@@ -15,14 +15,17 @@ var roleBuilder = {
         if(creep.memory.building && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.building = false;
             creep.memory.maintaining = false;
+            creep.memory.mission = "looking for energy source…";
             creep.say('🔄 harvest');
         }
         if(!creep.memory.building && creep.store.getFreeCapacity() == 0) {
-            if(Math.random()) {
+            if(_.sample([true, false])) { // Math.random()
                 creep.memory.building = true;
+                creep.memory.mission = "looking for construction sites…";
                 creep.say('🚧 build');
             }else{
                 creep.memory.maintaining = true;
+                creep.memory.mission = "looking for damaged buildings…";
                 creep.say('🚧 maintain');
             }
         }
@@ -37,7 +40,12 @@ var roleBuilder = {
             var target = creep.pos.findClosestByPath(FIND_CONSTRUCTION_SITES);
             if(typeof target !== 'null') {
                 if(creep.build(target) == ERR_NOT_IN_RANGE) {
-                    creep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
+                    creep.memory.mission = "building", target.structureType, target.id;
+                    creep.moveTo(
+                        target,
+                        {visualizePathStyle: {stroke: '#ffffff'}},
+                        {maxRooms: 1}
+                    );
                 }
             } else {
                 creep.memory.building = false;
@@ -55,9 +63,10 @@ var roleBuilder = {
             }});
             if(targets.length > 0) {
                 if(creep.repair(targets[0], RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.memory.mission = "repairing", target.structureType, target.id;
                     creep.moveTo(
                         targets[0],
-                        {visualizePathStyle: {stroke: '#ffffff'}},
+                        {visualizePathStyle: {stroke: '#008000'}},
                         {maxRooms: 1}
                     );
                 }
@@ -69,7 +78,11 @@ var roleBuilder = {
         else {
             var sources = creep.room.find(FIND_SOURCES);
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffaa00'}});
+                creep.moveTo(
+                    sources[0],
+                    {visualizePathStyle: {stroke: '#ffaa00'}},
+                    {maxRooms: 1}
+                );
             }
         }
     }
